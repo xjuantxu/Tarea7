@@ -5,117 +5,100 @@ import biblioteca.modelo.dominio.Libro;
 import biblioteca.modelo.dominio.Usuario;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * Clase Prestamos (paquete negocio).
+ * Clase Préstamos (paquete negocio).
  * Gestiona la colección de préstamos de la biblioteca.
- * Permite crear, devolver y listar préstamos.
+ * Permite realizar préstamos, devoluciones y listados.
+ * Utiliza ArrayList para almacenamiento dinámico.
  */
 public class Prestamos {
 
-    //Atributos
-    private Prestamo[] prestamos;
-    private int capacidad;
+    // Atributo
+    private List<Prestamo> prestamos;
 
     // Constructor
-    public Prestamos(int capacidad) {
-        this.capacidad = capacidad;
-        prestamos = new Prestamo[capacidad];
+    public Prestamos() {
+        prestamos = new ArrayList<>();
     }
 
-    // Realiza un préstamo
+    /**
+     * Realiza un préstamo.
+     * @param libro Libro a prestar.
+     * @param usuario Usuario que realiza el préstamo.
+     * @param fecha Fecha del préstamo.
+     * @return El préstamo creado o null si no se puede realizar.
+     */
     public Prestamo prestar(Libro libro, Usuario usuario, LocalDate fecha) {
+
         if (libro == null || usuario == null || fecha == null) {
             return null;
         }
 
-        // Comprobar que el libro no esté ya prestado
-        for (Prestamo p : prestamos) {
-            if (p != null
-                    && p.getLibro().equals(libro)
-                    && p.getFin(fecha) == null) {
-                return null; // libro ya prestado
-            }
-        }
+        Prestamo nuevo = new Prestamo(libro, usuario, fecha);
+        prestamos.add(new Prestamo(nuevo)); // copia profunda
 
-        // Buscar hueco
-        for (int i = 0; i < capacidad; i++) {
-            if (prestamos[i] == null) {
-                Prestamo nuevo = new Prestamo(libro, usuario, fecha);
-                prestamos[i] = new Prestamo(nuevo); // copia profunda
-                return new Prestamo(nuevo);          // copia para fuera
-            }
-        }
-
-        return null; // sin espacio
+        return nuevo;
     }
 
-    // Devuelve un préstamo.
+    /**
+     * Registra la devolución de un préstamo.
+     * @param libro Libro devuelto.
+     * @param usuario Usuario que devuelve el libro.
+     * @param fecha Fecha de devolución.
+     * @return true si se realizó correctamente.
+     */
     public boolean devolver(Libro libro, Usuario usuario, LocalDate fecha) {
-        if (libro == null || usuario == null || fecha == null) {
-            return false;
-        }
-        {
 
-            for (Prestamo p : prestamos) {
-                if (p != null &&
-                        p.getLibro().equals(libro) &&
-                        p.getUsuario().equals(usuario) &&
-                        !p.isDevuelto()) {
+        for (Prestamo p : prestamos) {
+            if (p.getLibro().equals(libro)
+                    && p.getUsuario().equals(usuario)
+                    && !p.isDevuelto()) {
 
-                    p.devolver(fecha);
-                    return true;
-                }
+                p.devolver(fecha);
+                return true;
             }
-
-            return false;
         }
+
+        return false;
     }
 
-    // Lista todos los préstamos
+    /**
+     * Devuelve todos los préstamos.
+     * @return Array de copias profundas de los préstamos.
+     */
     public Prestamo[] todos() {
-        int contador = 0;
 
-        for (Prestamo p : prestamos) {
-            if (p != null) {
-                contador++;
-            }
-        }
+        Prestamo[] resultado = new Prestamo[prestamos.size()];
 
-        Prestamo[] resultado = new Prestamo[contador];
-        int i = 0;
-
-        for (Prestamo p : prestamos) {
-            if (p != null) {
-                resultado[i++] = new Prestamo(p); // copia profunda
-            }
+        for (int i = 0; i < prestamos.size(); i++) {
+            resultado[i] = new Prestamo(prestamos.get(i));
         }
 
         return resultado;
     }
 
-    // Lista los préstamos de un usuario
+    /**
+     * Devuelve los préstamos de un usuario concreto.
+     * @param usuario Usuario a consultar.
+     * @return Array de préstamos del usuario.
+     */
     public Prestamo[] todos(Usuario usuario) {
+
         if (usuario == null) {
             return new Prestamo[0];
         }
 
-        int contador = 0;
+        List<Prestamo> filtrados = new ArrayList<>();
 
         for (Prestamo p : prestamos) {
-            if (p != null && p.getUsuario().equals(usuario)) {
-                contador++;
+            if (p.getUsuario().equals(usuario)) {
+                filtrados.add(new Prestamo(p));
             }
         }
 
-        Prestamo[] resultado = new Prestamo[contador];
-        int i = 0;
-
-        for (Prestamo p : prestamos) {
-            if (p != null && p.getUsuario().equals(usuario)) {
-                resultado[i++] = new Prestamo(p); // copia profunda
-            }
-        }
-
-        return resultado;
+        return filtrados.toArray(new Prestamo[0]);
     }
 }

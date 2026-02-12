@@ -12,14 +12,12 @@ import java.time.LocalDate;
 
 /**
  * Clase Modelo.
- * Gestiona el acceso a las colecciones de negocio (Usuarios, Libros, Prestamos)
+ * Gestiona el acceso a las colecciones de negocio (Usuarios, Libros, Préstamos)
  * y ofrece métodos para que el Controlador pueda realizar operaciones de alta,
  * baja, búsqueda y listado.
  */
 public class Modelo {
 
-    // Capacidad máxima de cada colección
-    private static final int CAPACIDAD = 100;
 
     private Libros libros;
     private Usuarios usuarios;
@@ -30,9 +28,9 @@ public class Modelo {
 
     // Inicializa las colecciones
     public void comenzar() {
-        libros = new Libros(CAPACIDAD);
-        usuarios = new Usuarios(CAPACIDAD);
-        prestamos = new Prestamos(CAPACIDAD);
+        libros = new Libros();
+        usuarios = new Usuarios();
+        prestamos = new Prestamos();
     }
 
     // Termina el modelo
