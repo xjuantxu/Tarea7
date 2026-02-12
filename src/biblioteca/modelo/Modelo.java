@@ -9,6 +9,7 @@ import biblioteca.modelo.dominio.Usuario;
 import biblioteca.modelo.dominio.Prestamo;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Clase Modelo.
@@ -18,12 +19,11 @@ import java.time.LocalDate;
  */
 public class Modelo {
 
-
     private Libros libros;
     private Usuarios usuarios;
     private Prestamos prestamos;
 
-    // Constructor de modelo (Se inicia en comenzar())
+    // Constructor
     public Modelo() {}
 
     // Inicializa las colecciones
@@ -38,29 +38,63 @@ public class Modelo {
         System.out.println("Termina Modelo");
     }
 
+    // =========================
     // Métodos para usuarios
-    public void altaUsuario(Usuario u) { usuarios.alta(u); }
-    public boolean bajaUsuario(Usuario u) { return usuarios.baja(u); }
-    public Usuario buscarUsuario(Usuario u) { return usuarios.buscar(u); }
-    public Usuario[] listadoUsuarios() { return usuarios.todos(); }
+    // =========================
 
+    public void altaUsuario(Usuario u) {
+        usuarios.alta(u);
+    }
+
+    public boolean bajaUsuario(Usuario u) {
+        return usuarios.baja(u);
+    }
+
+    public Usuario buscarUsuario(Usuario u) {
+        return usuarios.buscar(u);
+    }
+
+    public List<Usuario> listadoUsuarios() {
+        return usuarios.todos();
+    }
+
+    // =========================
     // Métodos para libros
-    public void altaLibro(Libro l) { libros.alta(l); }
-    public boolean bajaLibro(Libro l) { return libros.baja(l); }
-    public Libro buscarLibro(Libro l) { return libros.buscar(l); }
-    public Libro[] listadoLibros() { return libros.todos(); }
+    // =========================
 
+    public void altaLibro(Libro l) {
+        libros.alta(l);
+    }
+
+    public boolean bajaLibro(Libro l) {
+        return libros.baja(l);
+    }
+
+    public Libro buscarLibro(Libro l) {
+        return libros.buscar(l);
+    }
+
+    public List<Libro> listadoLibros() {
+        return libros.todos();
+    }
+
+    // =========================
     // Métodos para préstamos
+    // =========================
+
     public boolean prestar(Libro l, Usuario u, LocalDate f) {
         return prestamos.prestar(l, u, f) != null;
     }
+
     public boolean devolver(Libro l, Usuario u, LocalDate f) {
         return prestamos.devolver(l, u, f);
     }
-    public Prestamo[] listadoPrestamos() {
+
+    public List<Prestamo> listadoPrestamos() {
         return prestamos.todos();
     }
-    public Prestamo[] listadoPrestamos(Usuario u) {
+
+    public List<Prestamo> listadoPrestamos(Usuario u) {
         return prestamos.todos(u);
     }
 }
