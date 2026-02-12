@@ -78,13 +78,11 @@ public class Libros {
      * Devuelve todos los libros.
      * @return Array de copias profundas de los libros.
      */
-    public Libro[] todos() {
-        Libro[] resultado = new Libro[libros.size()];
-
-        for (int i = 0; i < libros.size(); i++) {
-            resultado[i] = new Libro(libros.get(i));
+    public List<Libro> todos() {
+        List<Libro> copia = new ArrayList<>();
+        for (Libro l : libros) {
+            copia.add(new Libro(l));
         }
-
-        return resultado;
+        return copia;
     }
 }

@@ -5,7 +5,9 @@ import biblioteca.modelo.dominio.*;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.InputMismatchException;
+import java.util.List;
 
 /**
  * Clase Vista.
@@ -14,16 +16,16 @@ import java.util.InputMismatchException;
  */
 public class Vista {
 
-    //Atributos
+    // Atributos
     private Controlador controlador;
     private Consola consola;
 
-    //Iniciamos la consola
+    // Iniciamos la consola
     public Vista() {
         consola = new Consola();
     }
 
-    //Asignamos controlador
+    // Asignamos controlador
     public void setControlador(Controlador controlador) {
         if (controlador == null)
             throw new IllegalArgumentException("Controlador no puede ser nulo");
@@ -31,7 +33,7 @@ public class Vista {
         this.controlador = controlador;
     }
 
-    //Comenzamos la interacción con el usuario
+    // Comenzamos la interacción con el usuario
     public void comenzar() {
         int opcion = -1;
 
@@ -50,12 +52,12 @@ public class Vista {
         } while (opcion != 0);
     }
 
-    //Terminamos la vista
+    // Terminamos la vista
     public void terminar() {
         consola.terminar();
     }
 
-    //Ejecutamos la opción seleccionada
+    // Ejecutamos la opción seleccionada
     private void ejecutarOpcion(int opcion) {
 
         switch (opcion) {
@@ -109,7 +111,10 @@ public class Vista {
         }
     }
 
-    //Métodos de usuarios
+    // =========================
+    // Métodos de usuarios
+    // =========================
+
     private void insertarUsuario() {
         Usuario usuario = consola.nuevoUsuario(false);
 
@@ -118,6 +123,7 @@ public class Vista {
         else
             System.out.println("El usuario ya existe");
     }
+
     private void borrarUsuario() {
         Usuario usuario = consola.nuevoUsuario(true);
 
@@ -126,17 +132,24 @@ public class Vista {
         else
             System.out.println("Usuario no encontrado");
     }
+
     private void listarUsuarios() {
-        Usuario[] usuarios = controlador.listadoUsuarios();
+        List<Usuario> usuarios = controlador.listadoUsuarios();
+
+        // Ordenar alfabéticamente por nombre (A → Z)
+        usuarios.sort(Comparator.comparing(Usuario::getNombre));
 
         System.out.println("\n--- LISTADO DE USUARIOS ---");
+
         for (Usuario u : usuarios) {
-            if (u != null)
-                System.out.println(u);
+            System.out.println(u);
         }
     }
 
-    //Métodos de libros
+    // =========================
+    // Métodos de libros
+    // =========================
+
     private void insertarLibro() {
         Libro libro = consola.nuevoLibro(false);
 
@@ -145,6 +158,7 @@ public class Vista {
         else
             System.out.println("El libro ya existe");
     }
+
     private void borrarLibro() {
         Libro libro = consola.nuevoLibro(true);
 
@@ -153,17 +167,26 @@ public class Vista {
         else
             System.out.println("Libro no encontrado");
     }
+
     private void listarLibros() {
-        Libro[] libros = controlador.listadoLibros();
+        List<Libro> libros = controlador.listadoLibros();
+
+        // Ordenación alfabética A → Z por título
+        libros.sort(Comparator.comparing(
+                l -> l.getTitulo().toLowerCase()
+        ));
 
         System.out.println("\n--- LISTADO DE LIBROS ---");
+
         for (Libro l : libros) {
-            if (l != null)
-                System.out.println(l);
+            System.out.println(l);
         }
     }
 
-    //Métodos de préstamos
+    // =========================
+    // Métodos de préstamos
+    // =========================
+
     private void nuevoPrestamo() {
 
         System.out.println("--- NUEVO PRÉSTAMO ---");
@@ -191,6 +214,7 @@ public class Vista {
         else
             System.out.println("No se pudo realizar el préstamo");
     }
+
     private void devolverPrestamo() {
 
         System.out.println("--- DEVOLUCIÓN ---");
@@ -218,17 +242,24 @@ public class Vista {
         else
             System.out.println("No se encontró préstamo activo");
     }
+
     private void mostrarPrestamos() {
 
-        Prestamo[] prestamos = controlador.listadoPrestamos();
+        List<Prestamo> prestamos = controlador.listadoPrestamos();
+
+        // Ordenación: fecha descendente, luego nombre de usuario A-Z
+        prestamos.sort(
+                Comparator.comparing(Prestamo::getFinicio).reversed()
+                        .thenComparing(p -> p.getUsuario().getNombre().toLowerCase())
+        );
 
         System.out.println("\n--- LISTADO DE PRÉSTAMOS ---");
 
         for (Prestamo p : prestamos) {
-            if (p != null)
-                System.out.println(p);
+            System.out.println(p);
         }
     }
+
     private void mostrarPrestamosUsuario() {
 
         System.out.print("DNI del usuario: ");
@@ -241,13 +272,15 @@ public class Vista {
             return;
         }
 
-        Prestamo[] prestamos = controlador.listadoPrestamos(usuario);
+        List<Prestamo> prestamos = controlador.listadoPrestamos(usuario);
+
+        // Ordenar por fecha descendente
+        prestamos.sort(Comparator.comparing(Prestamo::getFinicio).reversed());
 
         System.out.println("\n--- PRÉSTAMOS DEL USUARIO ---");
 
         for (Prestamo p : prestamos) {
-            if (p != null)
-                System.out.println(p);
+            System.out.println(p);
         }
     }
 }

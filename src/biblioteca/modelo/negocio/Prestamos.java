@@ -69,15 +69,15 @@ public class Prestamos {
      * Devuelve todos los préstamos.
      * @return Array de copias profundas de los préstamos.
      */
-    public Prestamo[] todos() {
+    public List<Prestamo> todos() {
 
-        Prestamo[] resultado = new Prestamo[prestamos.size()];
+        List<Prestamo> copia = new ArrayList<>();
 
-        for (int i = 0; i < prestamos.size(); i++) {
-            resultado[i] = new Prestamo(prestamos.get(i));
+        for (Prestamo p : prestamos) {
+            copia.add(new Prestamo(p));
         }
 
-        return resultado;
+        return copia;
     }
 
     /**
@@ -85,20 +85,19 @@ public class Prestamos {
      * @param usuario Usuario a consultar.
      * @return Array de préstamos del usuario.
      */
-    public Prestamo[] todos(Usuario usuario) {
+    public List<Prestamo> todos(Usuario usuario) {
 
-        if (usuario == null) {
-            return new Prestamo[0];
-        }
+        List<Prestamo> copia = new ArrayList<>();
 
-        List<Prestamo> filtrados = new ArrayList<>();
+        if (usuario == null)
+            return copia;
 
         for (Prestamo p : prestamos) {
             if (p.getUsuario().equals(usuario)) {
-                filtrados.add(new Prestamo(p));
+                copia.add(new Prestamo(p));
             }
         }
 
-        return filtrados.toArray(new Prestamo[0]);
+        return copia;
     }
 }
