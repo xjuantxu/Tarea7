@@ -35,7 +35,10 @@ public class Libro {
 
     // Constructor Copia
     public Libro(Libro libro) {
-        this(libro.isbn, libro.titulo, libro.anio, libro.categoria);
+        setIsbn(libro.isbn);
+        setTitulo(libro.titulo);
+        setAnio(libro.anio);
+        setCategoria(libro.categoria);
         for (Autor a : libro.getAutores()) {
             addAutor(new Autor(a));
         }
@@ -101,18 +104,24 @@ public class Libro {
 
         throw new IllegalStateException("Máximo número de autores alcanzado");
     } //Añadir autor
-
     public void borrarAutor(Autor autor) {
         if (autor == null) return;
 
         for (int i = 0; i < MAX_AUTORES; i++) {
             if (autores[i] != null && autores[i].equals(autor)) {
-                autores[i] = null;
+
+                for (int j = i; j < MAX_AUTORES - 1; j++) {
+                    autores[j] = autores[j + 1];
+                }
+
+                autores[MAX_AUTORES - 1] = null;
+
                 return;
             }
         }
-    } //Borrar autor
+    }
 
+    //Overrides
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -120,12 +129,12 @@ public class Libro {
         Libro libro = (Libro) o;
         return Objects.equals(isbn, libro.isbn);
     }
-
     @Override
-    public int hashCode() {return Objects.hash(isbn);}
+    public int hashCode() {
+        return Objects.hash(isbn);
+    }
 
-    /* ---------- TOSTRING ---------- */
-
+    //ToString
     @Override
     public String toString() {
         return "Libro{" +
@@ -133,7 +142,7 @@ public class Libro {
                 ", titulo='" + titulo + '\'' +
                 ", anio=" + anio +
                 ", categoria=" + categoria +
-                ", autores=" + Arrays.toString(autores) +
+                ", autores=" + autores +
                 '}';
     }
 }

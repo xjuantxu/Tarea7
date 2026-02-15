@@ -14,17 +14,17 @@ public class Autor {
     private String nacionalidad;
 
     // Constructor
-    public Autor(String nombre, String apellidos, String nacionalidad){
+    public Autor(String nombre, String apellidos, String nacionalidad) {
         setNombre(nombre);
         setApellidos(apellidos);
         setNacionalidad(nacionalidad);
     }
 
     // Constructor copia
-    public Autor(Autor otro) {
-        this.nombre = otro.nombre;
-        this.apellidos = otro.apellidos;
-        this.nacionalidad = otro.nacionalidad;
+    public Autor(Autor autor) {
+        setNombre(autor.nombre);
+        setApellidos(autor.apellidos);
+        setNacionalidad(autor.nacionalidad);
     }
 
     // Getters y setters
@@ -40,7 +40,7 @@ public class Autor {
         return nacionalidad;
     }
 
-    public void setNombre(String nombre) {
+    public void setNombre(String nombre) throws IllegalArgumentException{
         if (nombre == null) throw new IllegalArgumentException("Nombre no puede ser nulo");
         if (nombre.trim().isEmpty()) throw new IllegalArgumentException("Nombre no puede estar vacío");
 
@@ -57,6 +57,7 @@ public class Autor {
         this.nacionalidad = nacionalidad;
     }
 
+    // Overrides
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -65,12 +66,12 @@ public class Autor {
         return Objects.equals(nombre, autor.nombre)
                 && Objects.equals(apellidos, autor.apellidos);
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(nombre, apellidos);
     }
 
+    // ToString
     @Override
     public String toString() {
         return nombre + " " + apellidos + " (" + nacionalidad + ")";

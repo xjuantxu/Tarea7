@@ -26,12 +26,12 @@ public class Direccion {
     }
 
     // Constructor copia
-    public Direccion(Direccion otra) {
-        this.via = otra.via;
-        this.numero = otra.numero;
-        this.piso = otra.piso;
-        this.cp = otra.cp;
-        this.localidad = otra.localidad;
+    public Direccion(Direccion direccion) {
+        setVia(direccion.via);
+        setNumero(direccion.numero);
+        setPiso(direccion.piso);
+        setCp(direccion.cp);
+        setLocalidad(direccion.localidad);
     }
 
     // Getters y Setters
@@ -77,6 +77,7 @@ public class Direccion {
         this.localidad = localidad;
     }
 
+    //ToString
     @Override
     public String toString() {
         return via + " " + numero + ", " + piso + " - " + cp + " " + localidad;

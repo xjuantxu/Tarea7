@@ -27,11 +27,11 @@ public class Prestamo {
 
     // Constructor copia
     public Prestamo(Prestamo otro) {
-        this.libro = new Libro(otro.libro);
-        this.usuario = new Usuario(otro.usuario);
-        this.inicio = otro.inicio;
-        this.fin = otro.fin;
-        this.devuelto = otro.devuelto;
+        this.libro = (new Libro(otro.libro));
+        this.usuario = (new Usuario(otro.usuario));
+        this.inicio = (otro.inicio);
+        this.fin = (otro.fin);
+        this.devuelto = (otro.devuelto);
     }
 
     //Getters y setters

@@ -32,9 +32,9 @@ public class Usuario {
 
     // Constructor copia
     public Usuario(Usuario otro) {
-        this.dni = otro.dni;
-        this.nombre = otro.nombre;
-        this.email = otro.email;
+        setDni(otro.dni);
+        setNombre(otro.nombre);
+        setEmail(otro.email);
 
         // Copia profunda de la dirección
         if (otro.direccion != null) {
@@ -93,7 +93,6 @@ public class Usuario {
         Usuario usuario = (Usuario) o;
         return Objects.equals(dni, usuario.dni);
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(dni);
