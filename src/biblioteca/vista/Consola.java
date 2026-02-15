@@ -13,8 +13,9 @@ import org.iesalandalus.programacion.utilidades.Entrada;
  */
 public class Consola {
 
+    private Consola() {} //Evitamos instanciación
     // Muestra el menú principal
-    public void mostrarMenu() {
+    public static void mostrarMenu() {
         System.out.println("--- MENÚ BIBLIOTECA ---");
         System.out.println("0 - Salir");
         System.out.println("1 - Insertar usuario");
@@ -31,7 +32,7 @@ public class Consola {
     }
 
     //Crea un nuevo Usuario
-    public Usuario nuevoUsuario(boolean buscar) {
+    public static Usuario nuevoUsuario(boolean buscar) {
         String dni;
         String nombre;
         String email;
@@ -134,7 +135,7 @@ public class Consola {
     }
 
     // Crea un nuevo Libro
-    public Libro nuevoLibro(boolean buscar) {
+    public static Libro nuevoLibro(boolean buscar) {
 
         String isbn;
         String titulo;
@@ -221,7 +222,7 @@ public class Consola {
     }
 
     // Crea un nuevo Autor
-    public Autor nuevoAutor() {
+    public static Autor nuevoAutor() {
         String nombre;
         String apellidos;
         String nac;
@@ -261,12 +262,12 @@ public class Consola {
     }
 
     // Devuelve la fecha actual
-    public LocalDate leerFecha() {
+    public static LocalDate leerFecha() {
         return LocalDate.now();
     }
 
     // Metodo de cierre de consola
-    public void terminar() {
+    public static void terminar() {
         System.out.println("Termina consola");
     }
 }

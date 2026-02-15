@@ -22,7 +22,6 @@ public class Vista {
 
     // Iniciamos la consola
     public Vista() {
-        consola = new Consola();
     }
 
     // Asignamos controlador
@@ -38,7 +37,7 @@ public class Vista {
         int opcion = -1;
 
         do {
-            consola.mostrarMenu();
+            Consola.mostrarMenu();
             try {
                 System.out.print("Elige una opción: ");
                 opcion = Entrada.entero();
@@ -54,7 +53,7 @@ public class Vista {
 
     // Terminamos la vista
     public void terminar() {
-        consola.terminar();
+        Consola.terminar();
     }
 
     // Ejecutamos la opción seleccionada
@@ -116,7 +115,7 @@ public class Vista {
     // =========================
 
     private void insertarUsuario() {
-        Usuario usuario = consola.nuevoUsuario(false);
+        Usuario usuario = Consola.nuevoUsuario(false);
 
         if (controlador.alta(usuario))
             System.out.println("Usuario insertado correctamente");
@@ -125,7 +124,7 @@ public class Vista {
     }
 
     private void borrarUsuario() {
-        Usuario usuario = consola.nuevoUsuario(true);
+        Usuario usuario = Consola.nuevoUsuario(true);
 
         if (controlador.baja(usuario))
             System.out.println("Usuario eliminado");
@@ -151,7 +150,7 @@ public class Vista {
     // =========================
 
     private void insertarLibro() {
-        Libro libro = consola.nuevoLibro(false);
+        Libro libro = Consola.nuevoLibro(false);
 
         if (controlador.alta(libro))
             System.out.println("Libro insertado correctamente");
@@ -160,7 +159,7 @@ public class Vista {
     }
 
     private void borrarLibro() {
-        Libro libro = consola.nuevoLibro(true);
+        Libro libro = Consola.nuevoLibro(true);
 
         if (controlador.baja(libro))
             System.out.println("Libro eliminado");
@@ -191,7 +190,7 @@ public class Vista {
 
         System.out.println("--- NUEVO PRÉSTAMO ---");
 
-        Usuario usuario = consola.nuevoUsuario(true);
+        Usuario usuario = Consola.nuevoUsuario(true);
         usuario = controlador.buscar(usuario);
 
         if (usuario == null) {
@@ -199,7 +198,7 @@ public class Vista {
             return;
         }
 
-        Libro libro = consola.nuevoLibro(true);
+        Libro libro = Consola.nuevoLibro(true);
         libro = controlador.buscar(libro);
 
         if (libro == null) {
@@ -207,7 +206,7 @@ public class Vista {
             return;
         }
 
-        LocalDate fecha = consola.leerFecha();
+        LocalDate fecha = Consola.leerFecha();
 
         if (controlador.prestar(libro, usuario, fecha))
             System.out.println("Préstamo realizado correctamente");
@@ -219,7 +218,7 @@ public class Vista {
 
         System.out.println("--- DEVOLUCIÓN ---");
 
-        Usuario usuario = consola.nuevoUsuario(true);
+        Usuario usuario = Consola.nuevoUsuario(true);
         usuario = controlador.buscar(usuario);
 
         if (usuario == null) {
@@ -227,7 +226,7 @@ public class Vista {
             return;
         }
 
-        Libro libro = consola.nuevoLibro(true);
+        Libro libro = Consola.nuevoLibro(true);
         libro = controlador.buscar(libro);
 
         if (libro == null) {
@@ -235,7 +234,7 @@ public class Vista {
             return;
         }
 
-        LocalDate fecha = consola.leerFecha();
+        LocalDate fecha = Consola.leerFecha();
 
         if (controlador.devolver(libro, usuario, fecha))
             System.out.println("Préstamo devuelto correctamente");
