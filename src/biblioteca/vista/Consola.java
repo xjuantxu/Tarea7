@@ -149,7 +149,6 @@ public class Consola {
             isbn = Entrada.cadena();
             try {
                 Libro prueba = new Libro(isbn, "tmp", 1, Categoria.OTROS);
-                ;
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());

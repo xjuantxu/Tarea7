@@ -142,7 +142,7 @@ public class Libro {
                 ", titulo='" + titulo + '\'' +
                 ", anio=" + anio +
                 ", categoria=" + categoria +
-                ", autores=" + autores +
+                ", autores=" + Arrays.toString(autores) +
                 '}';
     }
 }
