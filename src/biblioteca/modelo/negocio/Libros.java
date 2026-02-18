@@ -21,10 +21,7 @@ public class Libros {
         libros = new ArrayList<>();
     }
 
-    /**
-     * Alta de un libro.
-     * @param libro Libro a insertar.
-     */
+
     public void alta(Libro libro) {
         if (libro == null) {
             throw new IllegalArgumentException("El libro no puede ser nulo");
@@ -33,11 +30,6 @@ public class Libros {
         libros.add(new Libro(libro)); // copia profunda
     }
 
-    /**
-     * Baja de un libro.
-     * @param libro Libro a eliminar.
-     * @return true si se eliminó, false en caso contrario.
-     */
     public boolean baja(Libro libro) {
         if (libro == null) {
             return false;
@@ -55,11 +47,6 @@ public class Libros {
         return false;
     }
 
-    /**
-     * Búsqueda de un libro.
-     * @param libro Libro a buscar.
-     * @return Copia profunda si existe, null en caso contrario.
-     */
     public Libro buscar(Libro libro) {
         if (libro == null) {
             return null;
@@ -74,10 +61,6 @@ public class Libros {
         return null;
     }
 
-    /**
-     * Devuelve todos los libros.
-     * @return Array de copias profundas de los libros.
-     */
     public List<Libro> todos() {
         List<Libro> copia = new ArrayList<>();
         for (Libro l : libros) {

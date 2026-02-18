@@ -21,10 +21,6 @@ public class Usuarios {
         usuarios = new ArrayList<>();
     }
 
-    /**
-     * Alta de un usuario.
-     * @param usuario Usuario a insertar.
-     */
     public void alta(Usuario usuario) {
         if (usuario == null) {
             throw new IllegalArgumentException("El usuario no puede ser nulo");
@@ -33,11 +29,7 @@ public class Usuarios {
         usuarios.add(new Usuario(usuario)); // copia profunda
     }
 
-    /**
-     * Baja de un usuario.
-     * @param usuario Usuario a eliminar.
-     * @return true si se eliminó, false en caso contrario.
-     */
+
     public boolean baja(Usuario usuario) {
         if (usuario == null)
             return false;
@@ -55,11 +47,7 @@ public class Usuarios {
         return false;
     }
 
-    /**
-     * Búsqueda de un usuario.
-     * @param usuario Usuario a buscar.
-     * @return Copia profunda del usuario si existe, null en caso contrario.
-     */
+
     public Usuario buscar(Usuario usuario) {
         if (usuario == null)
             return null;
@@ -73,10 +61,6 @@ public class Usuarios {
         return null;
     }
 
-    /**
-     * Devuelve todos los usuarios.
-     * @return Arraylist de copias profundas de los usuarios.
-     */
     public List<Usuario> todos() {
         List<Usuario> copia = new ArrayList<>();
 
